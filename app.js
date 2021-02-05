@@ -1,6 +1,5 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var console = require("console.table");
 const { table } = require("console");
 
 
@@ -18,11 +17,11 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id" + connection.threadId);
-    afterConnection();
+    afterConnection("employee");
 });
 
-function afterConnection() {
-    connection.query(`"SELECT * FROM '${table}'"`, function(err, res) {
+function afterConnection(table) {
+    connection.query(`SELECT * FROM ${table}`, function(err, res) {
         if (err) throw err;
         console.log(res);
         connection.end();
