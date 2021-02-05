@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var console = require("console.table");
+const { table } = require("console");
 
 
 var connection = mysql.createConnection({
@@ -11,17 +12,17 @@ var connection = mysql.createConnection({
     user: "root",
 
     password: "root",
-    database: "employeeTrackerSeeds"
+    database: "employee_trackerDB",
 });
 
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    console.log("connected as id" + connection.threadId);
     afterConnection();
 });
 
 function afterConnection() {
-    connection.query("SELECT * FROM products", function(err, res) {
+    connection.query(`"SELECT * FROM '${table}'"`, function(err, res) {
         if (err) throw err;
         console.log(res);
         connection.end();
