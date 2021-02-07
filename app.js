@@ -1,7 +1,5 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-// const { allowedNodeEnvironmentFlags } = require("process");
-// const { table } = require("console");
 
 
 var connection = mysql.createConnection({
@@ -132,6 +130,30 @@ function addDepartment() {
         message: "What department would you like to add?"
     }]).then(function(response) {
         connection.query(`INSERT INTO department (name) Values('${response.department}');`, function(err, res) {
+            if (err) throw err;
+        })
+    })
+}
+
+function addRole() {
+    inquirer.prompt([{
+        type: "input",
+        name: "Role",
+        message: "What Role would you like to add?"
+    }]).then(function(response) {
+        connection.query(`INSERT INTO role (name) Values('${response.role}');`, function(err, res) {
+            if (err) throw err;
+        })
+    })
+}
+
+function addEmployee() {
+    inquirer.prompt([{
+        type: "input",
+        name: "employee",
+        message: "What employee would you like to add?"
+    }]).then(function(response) {
+        connection.query(`INSERT INTO employee (name) Values('${response.employee}');`, function(err, res) {
             if (err) throw err;
         })
     })
