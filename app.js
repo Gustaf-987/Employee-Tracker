@@ -16,19 +16,21 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id" + connection.threadId);
-    afterConnection("employee");
+    // afterConnection("employee");
     init();
 });
 
 function afterConnection(table) {
     connection.query(`SELECT * FROM ${table}`, function(err, res) {
         if (err) throw err;
-        console.log(res);
+        // console.log(res);
         connection.end();
     });
 }
 
-function init() {
+function mainPrompt() {
+
+
     inquirer.prompt([{
         type: "list",
         name: "begin",
@@ -47,13 +49,18 @@ function init() {
                 break;
             case "Exit":
                 console.log("Exit");
-                break;
+                return;
             default:
                 console.log("default");
 
 
         }
     })
+
+}
+
+function init() {
+    mainPrompt();
 }
 
 function views() {
@@ -63,7 +70,7 @@ function views() {
         message: "Select which option",
         choices: ["All Employees", "View Departments", "View Roles"]
     }]).then(function(res) {
-        switch (res.view) {
+        switch (res.views) {
             case "All Employees":
                 allEmployees();
                 break;
@@ -80,10 +87,14 @@ function views() {
 }
 
 function allEmployees() {
-    connection.query("SELECT * FROM department", function(err, res) {
+    console.log("allEmployees");
+    connection.query("SELECT * FROM employee", function(err, res) {
         if (err) throw err;
         console.table(res);
+
     })
+    console.log("all employee query");
+    mainPrompt();
 }
 
 function departmentView() {
@@ -94,7 +105,7 @@ function departmentView() {
 }
 
 function roleView() {
-    connection.query("SELECT * FROM roles", function(err, res) {
+    connection.query("SELECT * FROM role", function(err, res) {
         if (err) throw err;
         console.table(res);
     })
@@ -121,7 +132,9 @@ function add() {
                 console.log("default");
         }
     })
+
 }
+
 
 function addDepartment() {
     inquirer.prompt([{
@@ -129,7 +142,8 @@ function addDepartment() {
         name: "department",
         message: "What department would you like to add?"
     }]).then(function(response) {
-        connection.query(`INSERT INTO department (name) Values('${response.department}');`, function(err, res) {
+        console.log("response", response)
+        connection.query("INSERT INTO department (dept_name) VALUES ?", response.name, function(err, res, ) {
             if (err) throw err;
         })
     })
