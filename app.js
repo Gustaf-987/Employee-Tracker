@@ -20,13 +20,13 @@ connection.connect(function(err) {
     init();
 });
 
-function afterConnection(table) {
-    connection.query(`SELECT * FROM ${table}`, function(err, res) {
-        if (err) throw err;
-        // console.log(res);
-        connection.end();
-    });
-}
+// function afterConnection(table) {
+//     connection.query(`SELECT * FROM ${table}`, function(err, res) {
+//         if (err) throw err;
+//         console.log(res);
+//         connection.end();
+//     });
+// }
 
 function mainPrompt() {
 
@@ -137,7 +137,6 @@ function add() {
 
 }
 
-
 function addDepartment() {
     inquirer.prompt([{
         type: "input",
@@ -146,10 +145,10 @@ function addDepartment() {
     }]).then(function(response) {
 
         connection.query(`INSERT INTO department (dept_name) VALUES ("${response.department}");`, function(err, res) {
-            if (err) throw err;
-            mainPrompt();
-        })
-        console.log("response", response)
+                if (err) throw err;
+                mainPrompt();
+            })
+            // console.log("response", response)
     })
 
 }
@@ -209,4 +208,37 @@ function addEmployee() {
         })
     })
 
+}
+
+function updateEmployee() {
+    connection.query(`SELECT id, first_name, last_name from employee;`, function(err, results) {
+        if (err) throw err;
+        let employeeArr = [];
+
+        for (let i = 0; i < results.length; i++) {
+            let employee = { name: results[i].first_name + " " + results[i].last_name, value: results[i].id }
+            employeeArr.push(employee);
+
+        }
+        inquirer.prompt([{
+                type: "list",
+                name: "employee",
+                message: "Please select the employee to update",
+                choices: employeeArr
+            },
+            {
+                type: "input",
+                name: "role_id",
+                message: "Please enter new Id",
+            }
+        ]).then(answers => {
+            console.log(answers)
+            connection.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [answers.role_id, answers.employee], function(err, results) {
+                if (err) throw err;
+                mainPrompt();
+            })
+        })
+
+
+    })
 }
