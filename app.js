@@ -20,14 +20,6 @@ connection.connect(function(err) {
     init();
 });
 
-// function afterConnection(table) {
-//     connection.query(`SELECT * FROM ${table}`, function(err, res) {
-//         if (err) throw err;
-//         console.log(res);
-//         connection.end();
-//     });
-// }
-
 function mainPrompt() {
 
 
@@ -171,7 +163,7 @@ function addRole() {
         }
 
     ]).then(function(response) {
-        connection.query(`INSERT INTO role (title, salary, department_id) Values('${response.role}', 
+        connection.query(`INSERT INTO role (title, salary, department_id) Values('${response.title}', 
         '${response.salary}', '${response.department_id}');`, function(err, res) {
             if (err) throw err;
             mainPrompt();
