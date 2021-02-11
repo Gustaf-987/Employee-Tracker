@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS employee_trackerDB;    
+
 CREATE DATABASE employee_trackerDB;
 
 USE employee_trackerDB;
@@ -13,7 +15,7 @@ CREATE TABLE role (
     id INTEGER(30) auto_increment,
     title VARCHAR(30),
     salary DECIMAL(6),
-    department_id INT auto_increment
+    department_id INT
     -- INDEX dept_index (department_id), 
     -- CONSTRAINT  fk_department foreign key (department_id) REFERENCES deptartment(id)
     -- ON DELETE CASCADE 
@@ -26,7 +28,7 @@ CREATE TABLE employee (
     id INTEGER(30) auto_increment,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    role_id INT auto_increment,
+    role_id INT,
     manager_id INT default NULL
     -- CONSTRAINT fk_manager FOREIGN KEY (manager_id)
     -- REFERENCES employee (id) ON DELETE SET NULL ,

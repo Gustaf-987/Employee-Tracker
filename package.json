@@ -1,0 +1,36 @@
+{
+    "name": "Employee-Tracker",
+    "version": "1.0.0",
+    "description": "Homework 12. A command line application for managing departments, roles, and employees in a company to better organize and plan business.",
+    "main": "app.js",
+    "dependencies": {
+        "anymatch": "^3.1.1",
+        "clone-response": "^1.0.2",
+        "console.table": "^0.10.0",
+        "decompress-response": "^3.3.0",
+        "inquirer": "^7.3.3",
+        "minimist": "^1.2.5",
+        "ms": "^2.1.3",
+        "nopt": "^1.0.10",
+        "mysql": "^2.18.1",
+        "normalize-path": "^3.0.0",
+        "normalize-url": "^4.5.0",
+        "p-cancelable": "^1.1.0",
+        "picomatch": "^2.2.2"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Gustaf-987/Employee-Tracker.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Gustaf-987/Employee-Tracker/issues"
+    },
+    "homepage": "https://github.com/Gustaf-987/Employee-Tracker#readme"
+}
